@@ -24,7 +24,8 @@ CREATE TABLE appointments (
     FOREIGN KEY (client_id) REFERENCES clients(id)
 );
 
-INSERT INTO clients (name, email, phone, planName, totalSessions, usedSessions)
+INSERT INTO clients 
+(name, email, phone, plan_name, total_sessions, used_sessions)
 VALUES 
 ("Pepito Fry", "pepito@example.com", "+56911111111", "Plan 10 sesiones", 10, 2),
 ("Ana Pérez", "ana@example.com", "+56922222222", "Plan 5 sesiones", 5, 5);

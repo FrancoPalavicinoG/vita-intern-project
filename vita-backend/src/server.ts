@@ -1,5 +1,6 @@
 import express from "express";
 import clientsRouter from "./routes/clients.routes";
+import appointmentsRouter from "./routes/appointments.routes";
 
 
 const app = express();
@@ -11,6 +12,7 @@ app.get("/ping", (req, res) => {
 });
 
 app.use("/clients", clientsRouter);
+app.use("/appointments", appointmentsRouter);
 
 const PORT = 4000;
 app.listen(PORT, () => {

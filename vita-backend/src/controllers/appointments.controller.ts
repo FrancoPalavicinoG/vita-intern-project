@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { createAppointmentService } from "../services/appointments.service";
 import { createAppointmentSchema } from "../validation/appointment.schema";
+import { ZodError } from "zod";
 
 export async function createAppointment(
     req: Request,
@@ -17,7 +18,24 @@ export async function createAppointment(
             message: "Appointment created successfully",
             data: appointment,
         });
-    } catch (err) {
-        next(err);
+    } catch (err: any) {
+        console.error("Error in createAppointment:", err);
+        
+        if (err instanceof ZodError) {
+            return res.status(400).json({
+                error: "Invalid request data",
+                details: err.issues,
+            });
+        }
+
+        if (err.message === "Cliente not found" ) {
+            return res.status(404).json({ error: err.message });
+        }
+
+        if (err.message === "No available sessions for this client") {
+            return res.status(400).json({ error: err.message });
+        }
+
+        return res.status(500).json({ error: "Internal server error" });
     }
 }

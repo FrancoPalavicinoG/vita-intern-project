@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { listClients } from "../services/clients.service";
 import { clientListResponseSchema } from "../validation/client.schema";
+import { ZodError } from "zod";
 
 export async function getClients(req: Request, res: Response) {
   try {
@@ -15,10 +16,10 @@ export async function getClients(req: Request, res: Response) {
   } catch (err: any) {
     console.error("Error in getClients:", err);
 
-    if (err?.issues) {
+    if (err instanceof ZodError) {
       return res.status(500).json({
-        error: "Response schema validation failed",
-        details: err.issues
+          error: "Response schema validation failed",
+          issues: err.issues,
       });
     }
 

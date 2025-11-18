@@ -10,7 +10,9 @@ export async function getSummaryService(date: string) {
             c.name,
             c.email,
             c.phone,
-            c.planName
+            c.planName,
+            c.totalSessions,
+            c.usedSessions
           FROM appointments AS a
           JOIN clients AS c ON a.clientId = c.id
           WHERE DATE(a.date) = ?
@@ -24,19 +26,35 @@ export async function getSummaryService(date: string) {
     const totalAppointments = appointments.length;
     const uniqueClients = new Set(appointments.map(a => a.clientId)).size;
 
+    // 3. Clientes que quedaron sin sesiones 
+    const zeroSessionClientsMap = new Map();
+    appointments.forEach(a => {
+      if (a.usedSessions >= a.totalSessions) {
+        zeroSessionClientsMap.set(a.clientId, {
+          id: a.clientId,
+          name: a.name,
+          email: a.email,
+          phone: a.phone
+        });
+      }
+    });
+    
+    const clientsWithZeroSessions = Array.from(zeroSessionClientsMap.values());
+
     return {
-        date, 
+        date,
         totalAppointments,
         uniqueClients,
-        sessionUssed: totalAppointments,
+        sessionUsed: totalAppointments,
+        clientsWithZeroSessions,
         appointments: appointments.map(a => ({
-            id: a.id,
-            clientId: a.clientId,
-            date: a.date,
-            name: a.name,
-            email: a.email,
-            phone: a.phone,
-            planName: a.planName
-        })),
+        id: a.id,
+        clientId: a.clientId,
+        date: a.date,
+        name: a.name,
+        email: a.email,
+        phone: a.phone,
+        planName: a.planName
+        }))
     };
 }

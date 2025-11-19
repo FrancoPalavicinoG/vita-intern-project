@@ -7,12 +7,35 @@ export function useClients() {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
+    async function loadClients() {
+        try {
+            setLoading(true);
+            const data = await getClients();
+            setClients(data);
+            setError(null);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : "Error fetching clients");
+        } finally {
+            setLoading(false);
+        }
+    }
+
     useEffect(() => {
-        getClients()
-            .then((data) => setClients(data))
-            .catch((err) => setError(err.message || "Error fetching clients"))
-            .finally(() => setLoading(false));
+        loadClients();
     }, []);
 
-    return { clients, loading, error };
+    const updateClientLocally = (clientId: number, updates: Partial<Client>) => {
+        setClients((prevClients) =>
+            prevClients.map((client) =>
+                client.id === clientId ? { ...client, ...updates } : client
+            )
+        );
+    };
+
+    return { 
+        clients, 
+        loading, 
+        error,
+        updateClientLocally 
+    };
 }

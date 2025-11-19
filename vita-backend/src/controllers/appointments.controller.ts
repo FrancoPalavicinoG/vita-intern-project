@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import { createAppointmentService } from "../services/appointments.service";
 import { createAppointmentSchema } from "../validation/appointment.schema";
 import { ZodError } from "zod";
@@ -6,7 +6,6 @@ import { ZodError } from "zod";
 export async function createAppointment(
     req: Request,
     res: Response,
-    next: NextFunction,
 ) {
     try {
         // 1. Validar entrada
@@ -36,6 +35,6 @@ export async function createAppointment(
             return res.status(400).json({ error: err.message });
         }
 
-        return res.status(500).json({ error: "Internal server error" });
+        return res.status(500).json({ error: "Internal server error"});
     }
 }

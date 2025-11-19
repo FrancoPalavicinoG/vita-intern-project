@@ -13,12 +13,12 @@ export async function createAppointmentService( data: CreateAppointmentInput) {
     const client = (clientRows as any[])[0];
 
     if (!client) {
-        throw new Error("Cliente no encontrado");
+        throw new Error("Client not found");
     }
 
     // 2. Verificar sesiones disponibles
     if (client.usedSessions >= client.totalSessions) {
-        throw new Error("No hay sesiones disponibles para este cliente");
+        throw new Error("No available sessions for this client");
     }
 
     // 3. Transacción

@@ -1,9 +1,9 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 import { getSummaryService } from '../services/summary.service';
 import { summaryParamsSchema } from '../validation/summary.schema';
 import { ZodError } from 'zod';
 
-export async function getSummary(req: Request, res: Response, next: NextFunction) {
+export async function getSummary(req: Request, res: Response) {
     try {
         const { date } = summaryParamsSchema.parse(req.params);
 

@@ -23,18 +23,62 @@ export default function ClientCard({ client, onSessionRegistered }: ClientCardPr
 
   return (
     <div className="border border-gray-200 shadow-sm rounded-lg p-4 mb-4 bg-white">
-      {/* Nombre */}
-      <h3 className="text-xl font-semibold text-gray-800">{client.name}</h3>
-      
-      {/* Info básica */}
-      <p className="text-gray-600">Email: {client.email || "N/A"}</p>
-      <p className="text-gray-600">Teléfono: {client.phone || "N/A"}</p>
-      
-      {/* Información del plan */}
-      <p className="mt-2 text-gray-800">
-        <strong className="font-medium">{client.planName}</strong>{" "}
-        — {client.usedSessions} / {client.totalSessions} sesiones
-      </p>
+      <div className="flex justify-between items-start mb-3 border-b pb-3">
+          <h3 className="text-2xl font-bold text-gray-900 leading-tight">
+              {client.name}
+          </h3>
+          <span className="text-xs font-semibold px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full border border-indigo-200 flex-shrink-0 ml-4">
+              {client.planName}
+          </span>
+      </div>
+
+      <div className="flex items-center">
+        <svg className="w-4 h-4 mr-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-2 4v7a2 2 0 01-2 2H5a2 2 0 01-2-2v-7" /></svg>
+        <p className="truncate">{client.email || "Email no disponible"}</p>
+      </div>
+        
+      <div className="flex items-center">
+          <svg className="w-4 h-4 mr-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.128a41.332 41.332 0 005.615 5.615l1.128-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+          <p>{client.phone || "N/A"}</p>
+      </div>
+    
+    {/* Barra de Estado */}
+    {(() => {
+        const remaining = client.totalSessions - client.usedSessions;
+        const percentage = client.totalSessions > 0 ? (client.usedSessions / client.totalSessions) * 100 : 0;
+        
+        let bgColor = 'bg-blue-500';
+        let remainingColor = 'text-blue-600';
+        
+        if (remaining <= 0) {
+            bgColor = 'bg-red-600';
+            remainingColor = 'text-red-700';
+        } else if (percentage >= 75) {
+            bgColor = 'bg-yellow-500';
+            remainingColor = 'text-yellow-700';
+        }
+
+        return (
+            <div className="mt-2 pt-2 border-t border-gray-100">
+                <div className="flex justify-between items-baseline mb-1">
+                    <p className={`text-lg font-extrabold ${remainingColor}`}>
+                        {remaining}
+                        <span className="text-sm font-medium ml-1">Sesiones restantes</span>
+                    </p>
+                    <p className="text-sm text-gray-500">
+                        {client.usedSessions} / {client.totalSessions} usadas
+                    </p>
+                </div>
+
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div 
+                        className={`${bgColor} h-2 rounded-full transition-all duration-500`} 
+                        style={{ width: `${percentage}%` }}
+                    ></div>
+                </div>
+            </div>
+        );
+    })()}
 
       {/* Mensaje de éxito */}
       {success && (
@@ -51,7 +95,7 @@ export default function ClientCard({ client, onSessionRegistered }: ClientCardPr
             />
           </svg>
           <p className="text-sm text-green-800 font-medium">
-            Session registered successfully!
+            ¡Sesión registrada con éxito!
           </p>
         </div>
       )}
@@ -89,7 +133,7 @@ export default function ClientCard({ client, onSessionRegistered }: ClientCardPr
             />
           </svg>
           <p className="text-sm text-yellow-800 font-medium">
-            No available sessions for this client
+            No hay sesiones disponibles para este cliente
           </p>
         </div>
       )}
@@ -123,10 +167,10 @@ export default function ClientCard({ client, onSessionRegistered }: ClientCardPr
                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
               />
             </svg>
-            Registering...
+            Registrando...
           </span>
         ) : (
-          "Register session today"
+          "Registrar sesión"
         )}
       </button>
     </div>

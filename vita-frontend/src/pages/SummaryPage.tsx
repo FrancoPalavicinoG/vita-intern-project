@@ -210,10 +210,14 @@ export default function SummaryPage() {
             key={appt.id}
             className="bg-white shadow-sm border border-gray-200 p-4 rounded-lg"
           >
-            <p className="text-lg font-semibold text-gray-800">{appt.name}</p>
-            <p className="text-gray-600">Plan: {appt.planName}</p>
+            <div className="flex justify-between items-start mb-3 border-b pb-3">
+              <p className="text-lg font-semibold text-gray-800">{appt.name}</p>
+              <span className="text-xs font-semibold px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full border border-indigo-200 flex-shrink-0 ml-4">
+                  {appt.planName}
+              </span>
+            </div>
 
-            <p className="text-gray-800 mt-1">
+            <p className="text-gray-800 mt-1 font-semibold italic">
               Hora:{" "}
               <span className="font-semibold text-blue-700">
                 {new Date(appt.date).toLocaleTimeString("es-CL", {

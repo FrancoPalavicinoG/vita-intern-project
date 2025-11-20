@@ -43,7 +43,7 @@ export default function ClientsPage() {
               d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
             />
           </svg>
-          <p className="text-gray-600 text-lg">Loading clients...</p>
+          <p className="text-gray-600 text-lg">Cargando clientes...</p>
         </div>
       </div>
     );
@@ -66,7 +66,7 @@ export default function ClientsPage() {
               />
             </svg>
             <div>
-              <h3 className="text-red-800 font-semibold mb-1">Error loading clients</h3>
+              <h3 className="text-red-800 font-semibold mb-1">Error al cargar los clientes</h3>
               <p className="text-red-700 text-sm">{error}</p>
             </div>
           </div>
@@ -79,9 +79,9 @@ export default function ClientsPage() {
     <div className="px-6 py-4 max-w-7xl mx-auto">
       <div className="mb-6 flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-800">Clients</h1>
+          <h1 className="text-3xl font-bold text-gray-800">Clientes</h1>
           <p className="text-gray-600 mt-1">
-            Manage your clients and their sessions
+            Administra tus clientes y sus sesiones
           </p>
         </div>
       </div>
@@ -101,9 +101,9 @@ export default function ClientsPage() {
               d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
             />
           </svg>
-          <p className="text-gray-600 text-lg font-medium">No clients found</p>
+          <p className="text-gray-600 text-lg font-medium">No se encontraron clientes</p>
           <p className="text-gray-500 text-sm mt-1">
-            Add your first client to get started
+            Agrega tu primer cliente para comenzar
           </p>
         </div>
       ) : (

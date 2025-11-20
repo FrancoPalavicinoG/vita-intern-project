@@ -50,7 +50,7 @@ docker-compose up --build
 4. Poblar la base de datos (seed)
 > En otra terminal:
 ```text
-docker exec -it vita-backend
+docker exec -it vita-backend sh
 ```
 > Y luego dentro del contenedor:
 ```text

@@ -45,7 +45,7 @@ docker-compose up --build
 - Construye las imágenes
 - Inicia MySQL
 - Inicia el backend en http://localhost:3000
-- Inicia el frontend en http://localhost:5173
+- Inicia el **frontend en http://localhost:5173**
 
 4. Poblar la base de datos (seed)
 > En otra terminal:

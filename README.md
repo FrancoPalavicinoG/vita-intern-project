@@ -5,14 +5,14 @@
 
 ## Descripción General
 Vita Intern Project es una plataforma que permite:
-- Registrar sesiones diarias por clientes.
+- Registrar sesiones diarias para clientes.
 - Administrar clientes, planes y sesiones restantes.
 - Obtener un resumen diario con insights:
     - Citas realizadas
-    - Sesiones utilizadas
-    - Clientes sin sesiones
-    - Detalle de citas del día
-    - Visualización mediante gráficos interactivos.
+    - Clientes únicos
+    - Clientes sin sesiones restantes y su contacto
+    - Detalle de citas del día (logs diarios)
+    - Visualización de citas por hora (peaks)
 
 ## Arquitectura del Proyecto
 ```text
@@ -112,7 +112,7 @@ vita-backend/
 | :--- | :--- | :--- | :--- | 
 | **Clients** | `GET` | `/clients` | Lista todos los clientes y su información. 
 | **Appointments** | `POST` | `/appointments` | Registra una sesión nueva para un cliente, actualizando su contador de sesiones. 
-| **Summary** | `GET` | `/summary/:date` | Retorna el resumen de la actividad de citas de un día de trabajo específico. 
+| **Summary** | `GET` | `/summary/:date` | Retorna el resumen de citas de un día específico (en la app el dia actual). 
 
 ---
 
@@ -210,7 +210,7 @@ vita-frontend/
 │   ├── hooks/                   # Custom Hooks para manejar el estado y la lógica de datos
 │   │   ├── useClients.ts        # Fetch (getClients) y permite actualizar el estado local tras registrar una sesión
 │   │   ├── usePagination.ts     # Lógica de paginación
-│   │   ├── useRegisterSession.ts# Lógica POST /appointments para registrar sesion
+│   │   ├── useRegisterSession.ts# Lógica POST /appointments para registrar sesión
 │   │   └── useSummary.ts        # Fetch getDailySummary(date)
 │   │
 │   ├── pages/                   # Vistas principales

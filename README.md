@@ -29,7 +29,12 @@ vita-intern-project/
 ```text
 docker --version
 ```
-2. Levantar el proyecto completo (DB + Backend + Frontend)
+2. Crear archivos .env desde los .env.example
+```text
+cp vita-backend/.env.example vita-backend/.env
+cp vita-frontend/.env.example vita-frontend/.env
+```
+3. Levantar el proyecto completo (DB + Backend + Frontend)
 > Ejecutar desde la raíz del proyecto:
 ```text
 docker-compose up --build
@@ -39,7 +44,7 @@ docker-compose up --build
 - Inicia el backend en http://localhost:3000
 - Inicia el frontend en http://localhost:5173
 
-3. Poblar la base de datos (seed)
+4. Poblar la base de datos (seed)
 > En otra terminal:
 ```text
 docker exec -it vita-backend
@@ -48,7 +53,7 @@ docker exec -it vita-backend
 ```text
 npm run seed
 ```
-4. Detener los servicios y limpiar todo
+5. Detener los servicios y limpiar todo
 ```text
 docker-compose down -v
 ```

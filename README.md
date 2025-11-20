@@ -64,34 +64,34 @@ docker-compose down -v
 > Centrado en modularidad (Routes → Controllers → Validation → Services → Types → DB)
 ```text
 vita-backend/
-├── db/                         # Configuración de la Base de Datos
-│   └── init.sql                # Script de inicialización SQL
+├── db/                         # Base de Datos 
+│   └── init.sql                # Script de inicialización MySQL
 │
 ├── src/
-│   ├── server.ts               # Punto de arranque principal (Express)
-│   ├── db.ts                   # Conexión a la base de datos o cliente ORM
+│   ├── server.ts               # Punto de partida de la API (Express)
+│   ├── db.ts                   # Conexión a la base de datos
 │   ├── seed.ts                 # Script para poblar la DB con datos iniciales
 │   │
-│   ├── routes/                 # Definición de rutas y mapeo a controladores
+│   ├── routes/                 # Definición de rutas y delegar la lógica a los controladores
 │   │   ├── clients.routes.ts
 │   │   ├── appointments.routes.ts
 │   │   └── summary.routes.ts
 │   │
-│   ├── controllers/            # Manejo de la lógica de petición/respuesta HTTP
+│   ├── controllers/            # Manejo de la lógica de petición/respuesta HTTP, validar parámetros de la request y manejo de errores
 │   │   ├── clients.controller.ts
 │   │   ├── appointments.controller.ts
 │   │   └── summary.controller.ts
 │   │
-│   ├── services/               # Lógica de negocio (Business Logic) y manipulación de datos
-│   │   ├── clients.service.ts
-│   │   ├── appointments.service.ts
-│   │   └── summary.service.ts
+│   ├── services/               # Lógica de negocio
+│   │   ├── clients.service.ts      # Obtener lista de clientes
+│   │   ├── appointments.service.ts # Verificar si un cliente tiene sesiones disponibles, insertar una nueva cita e incrementar sesiones usadas
+│   │   └── summary.service.ts      # Obtener citas del dia, calcular datos resumen y clientes que quedaron sin sesiones 
 │   │
-│   ├── types/                  # Definiciones de tipos (TypeScript Interfaces/Types)
+│   ├── types/                  # Definiciones de tipos
 │   │   ├── appointment.ts
 │   │   └── client.ts
 │   │
-│   └── validation/             # Esquemas de validación (ej. con Zod)
+│   └── validation/             # Esquemas de validación con Zod: Tipos, campos requeridos, rangos y manejo de errores
 │       ├── clients.schema.ts
 │       ├── appointments.schema.ts
 │       └── summary.schema.ts
@@ -194,39 +194,39 @@ vita-frontend/
 ├── node_modules/
 ├── src/
 │   ├── api/                     # Lógica para interactuar con los Endpoints del Backend
-│   │   ├── appointments.ts      # Funciones para POST /appointments
-│   │   ├── clients.ts           # Funciones para GET /clients
-│   │   ├── http.ts              # Configuración base de Axios o Fetch
-│   │   └── summary.ts           # Funciones para GET /summary/{date}
+│   │   ├── appointments.ts      # Función para POST /appointments
+│   │   ├── clients.ts           # Función para GET /clients
+│   │   ├── http.ts              # Configuración base de Axios
+│   │   └── summary.ts           # Función para GET /summary/{date}
 │   │
 │   ├── components/
 │   │   ├── clients/
-│   │   │   └── ClientCard.tsx   # Tarjeta individual del cliente
-│   │   └── ui/                  # Componentes de interfaz reutilizables
+│   │   │   └── ClientCard.tsx   # Card para cada cliente
+│   │   └── ui/                  # Componentes de UI
 │   │       ├── Navbar.tsx
 │   │       ├── PaginationControls.tsx # Componente de botones de paginación
 │   │       └── ...
 │   │
 │   ├── hooks/                   # Custom Hooks para manejar el estado y la lógica de datos
-│   │   ├── useClients.ts        # Fetch y estado de la lista de clientes
-│   │   ├── usePagination.ts     # Lógica de paginación reutilizable (Estado + Cálculo)
-│   │   ├── useRegisterSession.ts# Lógica para POST /appointments (mutación)
-│   │   └── useSummary.ts        # Fetch y estado del resumen diario
+│   │   ├── useClients.ts        # Fetch (getClients) y permite actualizar el estado local tras registrar una sesión
+│   │   ├── usePagination.ts     # Lógica de paginación
+│   │   ├── useRegisterSession.ts# Lógica POST /appointments para registrar sesion
+│   │   └── useSummary.ts        # Fetch getDailySummary(date)
 │   │
-│   ├── pages/                   # Vistas principales de la aplicación
-│   │   ├── ClientsPage.tsx      # Muestra la lista de clientes y usa usePagination
-│   │   └── SummaryPage.tsx      # Muestra el resumen diario y usa useSummary
+│   ├── pages/                   # Vistas principales
+│   │   ├── ClientsPage.tsx      # Lista de clientes (ClientCard) y usa usePagination
+│   │   └── SummaryPage.tsx      # Resumen diario y usa useSummary
 │   │
 │   ├── router/
-│   │   └── index.tsx            # Configuración de rutas (ej. React Router)
+│   │   └── index.tsx            # Configuración de rutas
 │   │
 │   ├── types/                   # Definiciones de tipos TypeScript
 │   │   ├── Client.ts
 │   │   └── Summary.ts
 │   │
-│   ├── App.tsx                  # Componente principal de la aplicación
-│   ├── index.css                # Estilos globales (Tailwind CSS)
-│   └── main.tsx                 # Punto de entrada de la aplicación (Renderizado de React)
-├── .env                         # Variables de entorno (ej. URL del backend)
-└── Dockerfile
+│   ├── App.tsx                  # Componente principal (Navbar)
+│   ├── index.css                # Tailwind CSS
+│   └── main.tsx                 # Punto de entrada de la app
+├── .env                         # Variables de entorno
+└── Dockerfile                   # Instrucciones para construir el contenedor Docker
 ```

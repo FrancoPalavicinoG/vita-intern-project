@@ -1,8 +1,24 @@
+import { useState } from "react";
 import ClientCard from "../components/clients/ClientCard";
+import PaginationControls from "../components/ui/PaginationControls";
 import { useClients } from "../hooks/useClients";
+import { usePagination } from "../hooks/usePagination"; 
 
 export default function ClientsPage() {
   const { clients, loading, error, updateClientLocally } = useClients();
+  
+  const itemsPerPage = 6; 
+  const { 
+    currentPage, 
+    currentItems: currentClients, 
+    totalPages, 
+    totalItems, 
+    startIndex, 
+    endIndex, 
+    goToPage, 
+    goToNextPage, 
+    goToPreviousPage 
+  } = usePagination(clients, itemsPerPage);
 
   const handleSessionRegistered = (clientId: number, newUsedSessions: number) => {
     updateClientLocally(clientId, { usedSessions: newUsedSessions });
@@ -65,11 +81,13 @@ export default function ClientsPage() {
 
   return (
     <div className="px-6 py-4 max-w-7xl mx-auto">
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-800">Clients</h1>
-        <p className="text-gray-600 mt-1">
-          Manage your clients and their sessions
-        </p>
+      <div className="mb-6 flex justify-between items-center">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-800">Clients</h1>
+          <p className="text-gray-600 mt-1">
+            Manage your clients and their sessions
+          </p>
+        </div>
       </div>
 
       {clients.length === 0 ? (
@@ -93,15 +111,29 @@ export default function ClientsPage() {
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {clients.map((client) => (
-            <ClientCard 
-              key={client.id} 
-              client={client}
-              onSessionRegistered={handleSessionRegistered}
+        <>
+          {/* Grid de clientes */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+            {currentClients.map((client) => (
+              <ClientCard 
+                key={client.id} 
+                client={client}
+                onSessionRegistered={handleSessionRegistered}
+              />
+            ))}
+          </div>
+
+          {/* Controles de paginación */}
+          {totalPages > 1 && (
+            <PaginationControls
+              currentPage={currentPage}
+              totalPages={totalPages}
+              goToPage={goToPage}
+              goToNextPage={goToNextPage}
+              goToPreviousPage={goToPreviousPage}
             />
-          ))}
-        </div>
+          )}
+        </>
       )}
     </div>
   );

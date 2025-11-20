@@ -21,6 +21,35 @@ vita-intern-project/
 ├── vita-frontend/     # React
 └── docker-compose.yml # Levanta localmente la base de datos, el backend (API) y el frontend.
 ```
+## Instrucciones de Ejecución
+
+1. Verificar que Docker esté instalado
+```text
+docker --version
+```
+2. Levantar el proyecto completo (DB + Backend + Frontend)
+> Ejecutar desde la raíz del proyecto:
+```text
+docker-compose up --build
+```
+- Construye las imágenes
+- Inicia MySQL
+- Inicia el backend en http://localhost:3000
+- Inicia el frontend en http://localhost:5173
+
+3. Poblar la base de datos (seed)
+> En otra terminal:
+```text
+docker exec -it vita-backend
+```
+> Y luego dentro del contenedor:
+```text
+npm run seed
+```
+4. Detener los servicios y limpiar todo
+```text
+docker-compose down -v
+```
 
 ## Backend
 ### Estructura del backend 

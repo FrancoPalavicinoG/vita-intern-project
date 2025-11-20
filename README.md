@@ -1,7 +1,30 @@
 # Vita Intern Project
+> Proyecto full-stack para la gestión de clientes, sesiones y reportes diarios para un servicio  de bienestar, salud y deporte. 
+**Backend** en Node.js + Express + MySQL.
+**Frontend** en React + Vite + Tailwind.
 
-## 1. Backend
-### 1.1 Estructura del backend 
+## Descripción General
+Vita Intern Project es una plataforma que permite:
+- Registrar sesiones diarias por clientes.
+- Administrar clientes, planes y sesiones restantes.
+- Obtener un resumen diario con insights:
+    - Citas realizadas
+    - Sesiones utilizadas
+    - Clientes sin sesiones
+    - Detalle de citas del día
+    - Visualización mediante gráficos interactivos.
+
+## Arquitectura del Proyecto
+```text
+vita-intern-project/
+├── vita-backend/      # API REST + MySQL
+├── vita-frontend/     # React
+└── docker-compose.yml # Levanta localmente la base de datos, el backend (API) y el frontend.
+```
+
+## Backend
+### Estructura del backend 
+> Centrado en modularidad (Routes → Controllers → Validation → Services → Types → DB)
 ```text
 vita-backend/
 ├── db/                         # Configuración de la Base de Datos
@@ -39,16 +62,16 @@ vita-backend/
 ├── Dockerfile                  # Instrucciones para construir el contenedor Docker
 └── .env                        # Variables de entorno
 ```
-### 1.2 Backend ERD
-<img width="438" height="306" alt="Screenshot 2025-11-17 at 11 06 52 am" src="https://github.com/user-attachments/assets/7d2ae6e1-da60-4343-bf35-c2272a275f4e" />
+### Backend ERD
+<img width="700" height="450" alt="Screenshot 2025-11-17 at 11 06 52 am" src="https://github.com/user-attachments/assets/7d2ae6e1-da60-4343-bf35-c2272a275f4e" />
 
-### 1.3 API Documentation
+### API Documentation
 
-| Name | Method | Path | Uso | Errores |
-| :--- | :--- | :--- | :--- | :--- |
-| **Clients** | `GET` | `/clients` | Lista todos los clientes y su información de sesiones. | N/A |
-| **Appointments** | `POST` | `/appointments` | Registra una sesión nueva para un cliente, actualizando su contador de sesiones. | `400` → Sin sesiones disponibles o fecha inválida. `404` → Cliente no existe. `500` → Error inesperado. |
-| **Summary** | `GET` | `/summary/:date` | Retorna el resumen de la actividad de citas/reservas de un día de trabajo específico. | N/A |
+| Nombre | Método | Path | Descripción |
+| :--- | :--- | :--- | :--- | 
+| **Clients** | `GET` | `/clients` | Lista todos los clientes y su información. 
+| **Appointments** | `POST` | `/appointments` | Registra una sesión nueva para un cliente, actualizando su contador de sesiones. 
+| **Summary** | `GET` | `/summary/:date` | Retorna el resumen de la actividad de citas de un día de trabajo específico. 
 
 ---
 
@@ -58,7 +81,7 @@ vita-backend/
 
 **`GET /clients`**
 
-**Respuesta (Output)**
+**Response**
 
 ```json
 {
@@ -82,7 +105,7 @@ vita-backend/
 
 **`POST /appointments`**
 
-**Body (Input)**
+**Body**
 
 ```json
 {
@@ -96,7 +119,7 @@ vita-backend/
 
 **`GET /summary/:date`**
 
-**Respuesta (Output)**
+**Response**
 
 ```json
 {
@@ -121,8 +144,8 @@ vita-backend/
     }
 }
 ```
-## 2. Frontend
-### 1.1 Estructura del Frontend 
+## Frontend
+### Estructura del Frontend 
 ```text
 vita-frontend/
 ├── node_modules/

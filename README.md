@@ -13,6 +13,9 @@ Vita Intern Project es una plataforma que permite:
     - Clientes sin sesiones restantes y su contacto
     - Detalle de citas del día (logs diarios)
     - Visualización de citas por hora (peaks)
+<img width="1426" height="786" alt="Screenshot 2025-11-20 at 4 21 44 pm" src="https://github.com/user-attachments/assets/f3f9aaf5-6ad6-40b8-aee9-cdbc9896f80b" />
+<img width="1426" height="786" alt="Screenshot 2025-11-20 at 4 21 26 pm" src="https://github.com/user-attachments/assets/0d71efbe-f53e-45c8-be24-30536f5952b2" />
+
 
 ## Arquitectura del Proyecto
 ```text

@@ -21,6 +21,8 @@ vita-intern-project/
 ├── vita-frontend/     # React
 └── docker-compose.yml # Levanta localmente la base de datos, el backend (API) y el frontend.
 ```
+---
+
 ## Instrucciones de Ejecución
 
 1. Verificar que Docker esté instalado
@@ -50,6 +52,7 @@ npm run seed
 ```text
 docker-compose down -v
 ```
+---
 
 ## Backend
 ### Estructura del backend 
@@ -91,8 +94,12 @@ vita-backend/
 ├── Dockerfile                  # Instrucciones para construir el contenedor Docker
 └── .env                        # Variables de entorno
 ```
+---
+
 ### Backend ERD
 <img width="700" height="450" alt="Screenshot 2025-11-17 at 11 06 52 am" src="https://github.com/user-attachments/assets/7d2ae6e1-da60-4343-bf35-c2272a275f4e" />
+
+---
 
 ### API Documentation
 
@@ -173,6 +180,8 @@ vita-backend/
     }
 }
 ```
+---
+
 ## Frontend
 ### Estructura del Frontend 
 ```text

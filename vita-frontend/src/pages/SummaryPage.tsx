@@ -1,4 +1,5 @@
 import { useSummary } from "../hooks/useSummary";
+import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 
 export default function SummaryPage() {
   const today = new Date().toISOString().split("T")[0];
@@ -82,8 +83,49 @@ export default function SummaryPage() {
         Resumen del día <span className="text-blue-600">{readableDate}</span>
       </h1>
 
+      {/* ——— Sesiones por hora ——— */}
+      <div className="bg-white shadow-sm border border-gray-200 p-5 rounded-xl mb-10">
+        <h2 className="text-xl font-semibold text-gray-800 mb-4">Citas por hora </h2>
+
+        {(() => {
+          const hoursMap: Record<string, number> = {};
+          summary.appointments.forEach((a) => {
+            const date = new Date(a.date);
+            const hour = date.getHours();
+            const label = `${String(hour).padStart(2, '0')}:00`;
+            hoursMap[label] = (hoursMap[label] || 0) + 1;
+          });
+
+          const hourlyData = Object.keys(hoursMap)
+            .sort()
+            .map((hour) => ({ hour, count: hoursMap[hour] }));
+
+          if (hourlyData.length === 0) {
+            return (
+              <div className="p-6 bg-gray-50 border border-gray-100 rounded-lg text-center text-gray-600">
+                No hay citas registradas hoy.
+              </div>
+            );
+          }
+
+          return (
+            <div className="w-full h-56">
+              <ResponsiveContainer>
+                <BarChart data={hourlyData} margin={{ top: 8, right: 12, left: -8, bottom: 6 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#f3f4f6" />
+                  <XAxis dataKey="hour" tick={{ fontSize: 12 }} />
+                  <YAxis allowDecimals={false} />
+                  <Tooltip />
+                  <Bar dataKey="count" fill="#3b82f6" radius={[6, 6, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          );
+        })()}
+      </div>
+
       {/* ——— KPI Cards ——— */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
         <div className="bg-white shadow-sm border border-gray-200 p-5 rounded-xl">
           <h2 className="text-lg font-semibold text-gray-700">Citas realizadas</h2>
           <p className="text-4xl font-extrabold text-blue-600 mt-3">
@@ -95,13 +137,6 @@ export default function SummaryPage() {
           <h2 className="text-lg font-semibold text-gray-700">Clientes únicos</h2>
           <p className="text-4xl font-extrabold text-green-600 mt-3">
             {summary.uniqueClients}
-          </p>
-        </div>
-
-        <div className="bg-white shadow-sm border border-gray-200 p-5 rounded-xl">
-          <h2 className="text-lg font-semibold text-gray-700">Sesiones usadas</h2>
-          <p className="text-4xl font-extrabold text-purple-600 mt-3">
-            {summary.sessionUsed}
           </p>
         </div>
       </div>

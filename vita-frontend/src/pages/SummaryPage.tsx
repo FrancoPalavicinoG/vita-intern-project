@@ -5,7 +5,7 @@ export default function SummaryPage() {
   const today = new Date().toISOString().split("T")[0];
   const { summary, loading, error } = useSummary(today);
 
-  // ——— Loading ———
+  {/* Loading */}
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -32,7 +32,7 @@ export default function SummaryPage() {
     );
   }
 
-  // ——— Error ———
+  {/* Error */}
   if (error) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -79,12 +79,12 @@ export default function SummaryPage() {
   return (
     <div className="px-6 py-4 max-w-7xl mx-auto">
 
-      {/* ——— Title ——— */}
+      {/* Title */}
       <h1 className="text-3xl font-bold text-gray-800 mb-6">
         Resumen del día <span className="text-blue-600">{readableDate}</span>
       </h1>
 
-      {/* ——— Sesiones por hora ——— */}
+      {/* Sesiones por hora */}
       <div className="bg-white shadow-sm border border-gray-200 p-5 rounded-xl mb-10">
         <h2 className="text-xl font-semibold text-gray-800 mb-4">Citas por hora </h2>
 
@@ -125,7 +125,7 @@ export default function SummaryPage() {
         })()}
       </div>
 
-      {/* ——— KPI Cards ——— */}
+      {/* KPI Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
         <div className="bg-white shadow-sm border border-gray-200 p-5 rounded-xl">
           <h2 className="text-lg font-semibold text-gray-700">Citas realizadas</h2>
@@ -149,7 +149,7 @@ export default function SummaryPage() {
         </div>
       </div>
 
-      {/* ——— Clients with 0 sessions ——— */}
+      {/* Clients with 0 sessions */}
       <h2 className="text-2xl font-semibold text-gray-800 mb-3">
         Clientes sin sesiones restantes
       </h2>
@@ -199,7 +199,7 @@ export default function SummaryPage() {
         </div>
       )}
 
-      {/* ——— Appointments ——— */}
+      {/* Appointments */}
       <h2 className="text-2xl font-semibold text-gray-800 mb-4">
         Detalle de citas del día
       </h2>

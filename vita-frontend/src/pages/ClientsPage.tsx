@@ -1,4 +1,3 @@
-import { useState } from "react";
 import ClientCard from "../components/clients/ClientCard";
 import PaginationControls from "../components/ui/PaginationControls";
 import { useClients } from "../hooks/useClients";
@@ -12,9 +11,6 @@ export default function ClientsPage() {
     currentPage, 
     currentItems: currentClients, 
     totalPages, 
-    totalItems, 
-    startIndex, 
-    endIndex, 
     goToPage, 
     goToNextPage, 
     goToPreviousPage 

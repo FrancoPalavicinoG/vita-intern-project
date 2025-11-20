@@ -69,10 +69,11 @@ export default function SummaryPage() {
 
   if (!summary) return null;
 
-  const readableDate = new Date(summary.date).toLocaleDateString("es-ES", {
-    day: "numeric",
-    month: "long",
-    year: "numeric"
+  const localDateString = summary.date + "T00:00:00"; 
+  const readableDate = new Date(localDateString).toLocaleDateString("es-ES", {
+      day: "numeric",
+      month: "long",
+      year: "numeric"
   });
 
   return (

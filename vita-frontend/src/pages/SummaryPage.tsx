@@ -125,7 +125,7 @@ export default function SummaryPage() {
       </div>
 
       {/* ——— KPI Cards ——— */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
         <div className="bg-white shadow-sm border border-gray-200 p-5 rounded-xl">
           <h2 className="text-lg font-semibold text-gray-700">Citas realizadas</h2>
           <p className="text-4xl font-extrabold text-blue-600 mt-3">
@@ -137,6 +137,13 @@ export default function SummaryPage() {
           <h2 className="text-lg font-semibold text-gray-700">Clientes únicos</h2>
           <p className="text-4xl font-extrabold text-green-600 mt-3">
             {summary.uniqueClients}
+          </p>
+        </div>
+
+        <div className="bg-white shadow-sm border border-gray-200 p-5 rounded-xl">
+          <h2 className="text-lg font-semibold text-gray-700">Clientes sin sesiones restantes</h2>
+          <p className="text-4xl font-extrabold text-red-600 mt-3">
+            {summary.clientsWithZeroSessions.length}
           </p>
         </div>
       </div>

@@ -82,7 +82,7 @@ vita-backend/
 
 **`POST /appointments`**
 
-**Respuesta (Output)**
+**Body (Input)**
 
 ```json
 {

@@ -56,7 +56,7 @@ docker exec -it vita-backend sh
 ```text
 npm run seed
 ```
-5. Detener los servicios y limpiar todo
+> **Detener los servicios y limpiar todo**
 ```text
 docker-compose down -v
 ```
